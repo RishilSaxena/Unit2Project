@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
+body{
+    background-image: url("https://wallpapercave.com/wp/ulmAl47.jpg");
+    font-family: 'Staatliches', cursive; 
+}
+.container{
+    text-align:center;
+
+}
+.container h1{
+    font-size:75px;
+    color:white;
+}
+#subheader{
+    font-size:50px;
+    color:white;
+    margin-top:50px;
+}
