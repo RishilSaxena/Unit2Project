@@ -1,19 +1,60 @@
-@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
 
-body{
-    background-image: url("https://wallpapercave.com/wp/ulmAl47.jpg");
-    font-family: 'Staatliches', cursive; 
+body {
+  background-image: url("https://wallpapercave.com/wp/ulmAl47.jpg");
+  font-family: "Staatliches", cursive;
 }
-.container{
-    text-align:center;
-
+.container {
+  text-align: center;
 }
-.container h1{
-    font-size:75px;
+.container h1 {
+  font-size: 75px;
+  color: white;
+}
+#subheader {
+  font-size: 50px;
+  color: white;
+  margin-top: 50px;
+}
+input {
+  width: 75%;
+  padding: 6px 12px;
+  margin-top: 20px;
+  border-radius: 5px;
+  display: inline-block;
+}
+#search {
+  display: inline-block;
+  margin-left: 15px;
+}
+h2, p{
     color:white;
+    margin-top:30px;
 }
-#subheader{
-    font-size:50px;
-    color:white;
-    margin-top:50px;
+p{
+    font-size:20px;
 }
+footer {
+    background-color: rgb(156, 156, 156);
+    width: 100%;
+    padding-bottom:15px;
+    margin-top:10px;
+    position:absolute;
+    bottom:0px;
+  }
+  footer a {
+    text-decoration: none;
+    color: rgb(83, 83, 83); 
+    padding-left: 20px;
+    padding-right: 20px;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+  footer a:hover {
+    color: black;
+    transform: scale(110%, 110%);
+  }
+  footer p{
+      padding-left:20px;
+      color:white;
+      font-size:15px;
+  }
