@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Astronomy Picture of the Day</title>
     <link rel="stylehseet" type="text/css" href="./assets/css/reset.css" />
     <link
@@ -13,17 +13,114 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" type="text/css" href="./assets/css/index.css" />
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <input type="text" placeholder="Search a date to get the astronomy picture of the day on that date!     Use YYYY-MM-DD, or leave this blank if you want today's picture!" />
-        <button id="search" class="btn btn-outline-light">Search!</button>
-      </div>
-
+      <input
+        type="text"
+        placeholder="Search a date to get the astronomy picture of the day on that date!     Use YYYY-MM-DD, or leave this blank if you want today's picture!"
+      />
+      <button id="search" class="btn btn-outline-light">Search!</button>
+      <div id="image-div"></div>
+      <p id="caption"></p>
+    </div>
+    <footer>
+      <p>Powered by the NASA API</p>
+      <a href="./index.html">Home</a>
+      <a href="./projectinfo.html">NASA Projects Info</a>
+    </footer>
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
-</body>
+    <script>
+      let date = "";
+      let queryUrl;
+      let i = 0;
+      let txt = "";
+      let whereToRender = "";
+      function typeWriter() {
+        if (i < txt.length) {
+          document.getElementById(whereToRender).innerHTML += txt.charAt(i);
+          i++;
+          setTimeout(typeWriter, 20);
+        }
+      }
+      $("#search").on("click", function () {
+        date = $("input").val();
+        $("#image-div").empty();
+        $("input").val("");
+        $("#image-div").html("<p> Loading </p>");
+        $("#caption").empty();
+        if (date == undefined) {
+          queryUrl =
+            "https://api.nasa.gov/planetary/apod?api_key=brcbtCXfaGAxUTRbg6zJa6jIHcaVWqvHavht8jXi";
+        } else {
+          queryUrl =
+            "https://api.nasa.gov/planetary/apod?api_key=brcbtCXfaGAxUTRbg6zJa6jIHcaVWqvHavht8jXi&date=" +
+            date;
+        }
+        $.ajax({
+          url: queryUrl,
+          method: "GET",
+        }).then(function (res) {
+          const image = $("<img src=" + res.hdurl + ">");
+          image.css("opacity", "0%");
+          $("#image-div").append(image);
+          $(image).on("load", function () {
+            $("#image-div").empty();
+            $("#image-div").append(image);
+            image.css("opacity", "100%");
+            i = 0;
+            txt = res.explanation;
+            whereToRender = "caption";
+            typeWriter();
+          });
+          console.log(res);
+
+          $("footer").css("position", "static");
+        });
+      });
+
+      //This is a duplicate with an event listener
+      $("input").on("keyup", function (e) { 
+        if (e.key == "Enter") {
+          date = $("input").val();
+          $("#image-div").empty();
+          $("input").val("");
+          $("#image-div").html("<p> Loading </p>");
+          $("#caption").empty();
+          if (date == undefined) {
+            queryUrl =
+              "https://api.nasa.gov/planetary/apod?api_key=brcbtCXfaGAxUTRbg6zJa6jIHcaVWqvHavht8jXi";
+          } else {
+            queryUrl =
+              "https://api.nasa.gov/planetary/apod?api_key=brcbtCXfaGAxUTRbg6zJa6jIHcaVWqvHavht8jXi&date=" +
+              date;
+          }
+          $.ajax({
+            url: queryUrl,
+            method: "GET",
+          }).then(function (res) {
+            const image = $("<img src=" + res.hdurl + ">");
+            image.css("opacity", "0%");
+            $("#image-div").append(image);
+            $(image).on("load", function () {
+              $("#image-div").empty();
+              $("#image-div").append(image);
+              image.css("opacity", "100%");
+              i = 0;
+              txt = res.explanation;
+              whereToRender = "caption";
+              typeWriter();
+            });
+            console.log(res);
+
+            $("footer").css("position", "static");
+          });
+        }
+      });
+    </script>
+  </body>
 </html>

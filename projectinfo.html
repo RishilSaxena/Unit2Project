@@ -38,17 +38,12 @@
       let i = 0;
       let txt = "";
       let whereToRender = "";
-      let ready = true;
       function typeWriter() {
         if (i < txt.length) {
           document.getElementById(whereToRender).innerHTML += txt.charAt(i);
           i++;
-          ready = false;
           setTimeout(typeWriter, 20);
-        } else {
-          console.log("ready");
-          ready = true;
-        }
+        } 
       }
       $("#search").on("click", function () {
         searchQuery = $("input").val();
