@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EPIC</title>
+    <link rel="stylehseet" type="text/css" href="./assets/css/reset.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="./assets/css/index.css" />
+  </head>
+  <body>
+    <div class="container">
+      <a href="./index.html"
+        ><img
+          src="https://img.icons8.com/ios-filled/50/ffffff/home.png"
+          id="home-link"
+      /></a>
+      <input
+        type="text"
+        placeholder="Search a date to get a picture of the Earth on that date!     Use YYYY-MM-DD!    At this time, you cannot search images that have been taken up to 3 days ago."
+      />
+      <button id="search" class="btn btn-outline-light">Search!</button>
+      <div id="image-div"></div>
+      <p id="caption"></p>
+    </div>
+    <footer>
+      <p>Powered by the NASA API</p>
+      <a href="./index.html">Home</a>
+      <a href="./projectinfo.html">NASA Projects Info</a>
+      <a href="./apod.html">Astronomy Picture of the Day</a>
+      <a href="https://icons8.com/icon/2797/home">Home icon by Icons8</a>
+    </footer>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      let date = "";
+      let queryUrl;
+      let i = 0;
+      let txt = "";
+      let whereToRender = "";
+      let year;
+      let month;
+      let day;
+      function typeWriter() {
+        if (i < txt.length) {
+          document.getElementById(whereToRender).innerHTML += txt.charAt(i);
+          i++;
+          setTimeout(typeWriter, 20);
+        }
+      }
+      $("#search").on("click", function () {
+        date = $("input").val();
+        $("#image-div").empty();
+        $("input").val("");
+        $("#image-div").html(
+          "<img src='https://s3.amazonaws.com/msc-media-linux-production/5e0ea029945d6.gif'>"
+        );
+        $("#caption").empty();
+        queryUrl =
+          "https://api.nasa.gov/EPIC/api/enhanced/date/" +
+          date +
+          "?api_key=brcbtCXfaGAxUTRbg6zJa6jIHcaVWqvHavht8jXi";
+        $.ajax({
+          url: queryUrl,
+          method: "GET",
+        }).then(function (res) {
+          year = date.slice(0, 4);
+          month = date.slice(5, 7);
+          day = date.slice(8);
+          console.log(year + month + day + date);
+
+          const image = $(
+            "<img src='https://api.nasa.gov/EPIC/archive/enhanced/" +
+              year +
+              "/" +
+              month +
+              "/" +
+              day +
+              "/png/" +
+              res[Math.floor(Math.random() * 10)].image +
+              ".png?api_key=brcbtCXfaGAxUTRbg6zJa6jIHcaVWqvHavht8jXi'>"
+          );
+          image.css("opacity", "0%");
+          $("#image-div").append(image);
+          $(image).on("load", function () {
+            $("footer").css("position", "static");
+            $("#image-div").empty();
+            $("#image-div").append(image);
+            image.css("opacity", "100%");
+            i = 0;
+            txt = res[Math.floor(Math.random() * 10)].caption;
+            whereToRender = "caption";
+            typeWriter();
+          });
+          console.log(res);
+        });
+      });
+
+      //This is a duplicate with an event listener
+      $("input").on("keyup", function (e) {
+        if (e.key == "Enter") {
+          date = $("input").val();
+          $("#image-div").empty();
+          $("input").val("");
+          $("#image-div").html(
+            "<img src='https://s3.amazonaws.com/msc-media-linux-production/5e0ea029945d6.gif'>"
+          );
+          $("#caption").empty();
+          queryUrl =
+            "https://api.nasa.gov/EPIC/api/enhanced/date/" +
+            date +
+            "?api_key=brcbtCXfaGAxUTRbg6zJa6jIHcaVWqvHavht8jXi";
+          $.ajax({
+            url: queryUrl,
+            method: "GET",
+          }).then(function (res) {
+            year = date.slice(0, 4);
+            month = date.slice(5, 7);
+            day = date.slice(8);
+            console.log(year + month + day + date);
+
+            const image = $(
+              "<img src='https://api.nasa.gov/EPIC/archive/enhanced/" +
+                year +
+                "/" +
+                month +
+                "/" +
+                day +
+                "/png/" +
+                res[Math.floor(Math.random() * 10)].image +
+                ".png?api_key=brcbtCXfaGAxUTRbg6zJa6jIHcaVWqvHavht8jXi'>"
+            );
+            image.css("opacity", "0%");
+            $("#image-div").append(image);
+            $(image).on("load", function () {
+              $("footer").css("position", "static");
+              $("#image-div").empty();
+              $("#image-div").append(image);
+              image.css("opacity", "100%");
+              i = 0;
+              txt = res[Math.floor(Math.random() * 10)].caption;
+              whereToRender = "caption";
+              typeWriter();
+            });
+            console.log(res);
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
