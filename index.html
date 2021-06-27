@@ -37,17 +37,22 @@
         const subHeader = $("<h2> Check out all of our pages!</h2>");
         subHeader.attr("id", "subheader");
         subHeader.css("opacity", opacity + "%");
-        const projectsLink = $("<a>NASA Technology Info</a>");
+        const projectsLink = $("<a>NASA Projects Info</a>");
         projectsLink.attr("class", "link btn btn-outline-light");
         projectsLink.attr("href", "./projectinfo.html");
         projectsLink.css("opacity", opacity + "%");
-        const apodLink = $("<a>Astronomy Picture of the Day!</a>");
+        const apodLink = $("<a>Astronomy Picture of the Day</a>");
         apodLink.attr("class", "link btn btn-outline-light");
         apodLink.attr("href", "./apod.html");
         apodLink.css("opacity", opacity + "%");
+        const epic = $("<a>Earth Pictures</a>");
+        epic.attr("class", "link btn btn-outline-light");
+        epic.attr("href", "./epic.html");
+        epic.css("opacity", opacity + "%");
         $(".container").append(subHeader);
         $(".container").append(projectsLink);
         $(".container").append(apodLink);
+        $(".container").append(epic);
         const changeOpacity = setInterval(function () {
           opacity += 1;
           subHeader.css("opacity", opacity + "%");
