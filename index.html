@@ -49,10 +49,15 @@
         epic.attr("class", "link btn btn-outline-light");
         epic.attr("href", "./epic.html");
         epic.css("opacity", opacity + "%");
+        const videosearcher = $("<a>NASA Video Searcher</a>");
+        videosearcher.attr("class", "link btn btn-outline-light");
+        videosearcher.attr("href", "./videosearcher.html");
+        videosearcher.css("opacity", opacity + "%");
         $(".container").append(subHeader);
         $(".container").append(projectsLink);
         $(".container").append(apodLink);
         $(".container").append(epic);
+        $(".container").append(videosearcher);
         const changeOpacity = setInterval(function () {
           opacity += 1;
           subHeader.css("opacity", opacity + "%");

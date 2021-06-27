@@ -35,6 +35,7 @@
       <a href="./projectinfo.html">NASA Projects Info</a>
       <a href="./apod.html">Astronomy Picture of the Day</a>
       <a href="./epic.html">Earth Pictures</a>
+      <a href="./videosearcher.html">NASA Video Searcher</a>
       <a href="https://icons8.com/icon/2797/home">Home icon by Icons8</a>
     </footer>
     <script
@@ -51,6 +52,7 @@
       let year;
       let month;
       let day;
+      let indexNumber;
       function typeWriter() {
         if (i < txt.length) {
           document.getElementById(whereToRender).innerHTML += txt.charAt(i);
@@ -59,6 +61,7 @@
         }
       }
       $("#search").on("click", function () {
+        indexNumber = Math.floor(Math.random() * 10);
         date = $("input").val();
         $("#image-div").empty();
         $("input").val("");
@@ -87,7 +90,7 @@
               "/" +
               day +
               "/png/" +
-              res[Math.floor(Math.random() * 10)].image +
+              res[indexNumber].image +
               ".png?api_key=brcbtCXfaGAxUTRbg6zJa6jIHcaVWqvHavht8jXi'>"
           );
           image.css("opacity", "0%");
@@ -98,7 +101,7 @@
             $("#image-div").append(image);
             image.css("opacity", "100%");
             i = 0;
-            txt = res[Math.floor(Math.random() * 10)].caption;
+            txt = res[indexNumber].caption;
             whereToRender = "caption";
             typeWriter();
           });
@@ -109,6 +112,7 @@
       //This is a duplicate with an event listener
       $("input").on("keyup", function (e) {
         if (e.key == "Enter") {
+          indexNumber = Math.floor(Math.random() * 10);
           date = $("input").val();
           $("#image-div").empty();
           $("input").val("");
@@ -137,7 +141,7 @@
                 "/" +
                 day +
                 "/png/" +
-                res[Math.floor(Math.random() * 10)].image +
+                res[indexNumber].image +
                 ".png?api_key=brcbtCXfaGAxUTRbg6zJa6jIHcaVWqvHavht8jXi'>"
             );
             image.css("opacity", "0%");
@@ -148,7 +152,7 @@
               $("#image-div").append(image);
               image.css("opacity", "100%");
               i = 0;
-              txt = res[Math.floor(Math.random() * 10)].caption;
+              txt = res[indexNumber].caption;
               whereToRender = "caption";
               typeWriter();
             });
