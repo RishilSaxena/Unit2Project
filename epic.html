@@ -96,7 +96,9 @@
           image.css("opacity", "0%");
           $("#image-div").append(image);
           $(image).on("load", function () {
-            $("footer").css("position", "static");
+            if (document.body.clientHeight >= 900) {
+              $("footer").css("position", "static");
+            }
             $("#image-div").empty();
             $("#image-div").append(image);
             image.css("opacity", "100%");
@@ -147,7 +149,9 @@
             image.css("opacity", "0%");
             $("#image-div").append(image);
             $(image).on("load", function () {
-              $("footer").css("position", "static");
+              if (document.body.clientHeight >= 900) {
+                $("footer").css("position", "static");
+              }
               $("#image-div").empty();
               $("#image-div").append(image);
               image.css("opacity", "100%");

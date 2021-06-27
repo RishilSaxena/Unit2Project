@@ -82,16 +82,16 @@
           const regex = /(\s)/g;
           source = source.replace(regex, "%20");
           video.append("<source src=" + source + "type='video/mp4'>");
-          $(video).on("load", function () {
+          if (document.body.clientHeight >= 900) {
             $("footer").css("position", "static");
-            $("#image-div").empty();
-            $("#image-div").append(video);
-            video.css("opacity", "100%");
-            i = 0;
-            txt = res.collection.items[indexNumber].data[0].description;
-            whereToRender = "caption";
-            typeWriter();
-          });
+          }
+          $("#image-div").empty();
+          $("#image-div").append(video);
+          video.css("opacity", "100%");
+          i = 0;
+          txt = res.collection.items[indexNumber].data[0].description;
+          whereToRender = "caption";
+          typeWriter();
           console.log(res);
         });
       });
@@ -100,34 +100,40 @@
       $("input").on("keyup", function (e) {
         if (e.key == "Enter") {
           indexNumber = Math.floor(Math.random() * 15);
-        query = $("input").val();
-        $("#image-div").empty();
-        $("input").val("");
-        $("#image-div").html(
-          "<img src='https://s3.amazonaws.com/msc-media-linux-production/5e0ea029945d6.gif'>"
-        );
-        $("#caption").empty();
-        queryUrl =
-          "https://images-api.nasa.gov/search?q=" + query + "&media_type=video";
-        $.ajax({
-          url: queryUrl,
-          method: "GET",
-        }).then(function (res) {
-          const video = $("<video controls width='750' height='500'></video>");
-          video.css("opacity", "0%");
-          $("#image-div").append(video);
-          let source =
-            "https://images-assets.nasa.gov/video/" +
-            res.collection.items[indexNumber].data[0].nasa_id +
-            "/" +
-            res.collection.items[indexNumber].data[0].nasa_id +
-            "~orig.mp4";
+          query = $("input").val();
+          $("#image-div").empty();
+          $("input").val("");
+          $("#image-div").html(
+            "<img src='https://s3.amazonaws.com/msc-media-linux-production/5e0ea029945d6.gif'>"
+          );
+          $("#caption").empty();
+          queryUrl =
+            "https://images-api.nasa.gov/search?q=" +
+            query +
+            "&media_type=video";
+          $.ajax({
+            url: queryUrl,
+            method: "GET",
+          }).then(function (res) {
+            const video = $(
+              "<video controls width='750' height='500'></video>"
+            );
+            video.css("opacity", "0%");
+            $("#image-div").append(video);
+            let source =
+              "https://images-assets.nasa.gov/video/" +
+              res.collection.items[indexNumber].data[0].nasa_id +
+              "/" +
+              res.collection.items[indexNumber].data[0].nasa_id +
+              "~orig.mp4";
 
-          const regex = /(\s)/g;
-          source = source.replace(regex, "%20");
-          video.append("<source src=" + source + " type='video/mp4'>");
-          // $(video).on("load", function () {
-            $("footer").css("position", "static");
+            const regex = /(\s)/g;
+            source = source.replace(regex, "%20");
+            video.append("<source src=" + source + " type='video/mp4'>");
+            // $(video).on("load", function () {
+            if (document.body.clientHeight >= 900) {
+              $("footer").css("position", "static");
+            }
             $("#image-div").empty();
             $("#image-div").append(video);
             video.css("opacity", "100%");
@@ -135,9 +141,9 @@
             txt = res.collection.items[indexNumber].data[0].description;
             whereToRender = "caption";
             typeWriter();
-          // });
-          console.log(res);
-        });
+            // });
+            console.log(res);
+          });
         }
       });
     </script>

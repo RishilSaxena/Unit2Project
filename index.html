@@ -53,11 +53,16 @@
         videosearcher.attr("class", "link btn btn-outline-light");
         videosearcher.attr("href", "./videosearcher.html");
         videosearcher.css("opacity", opacity + "%");
+        const roverpictures = $("<a>Mars Rover Pictures</a>");
+        roverpictures.attr("class", "link btn btn-outline-light");
+        roverpictures.attr("href", "./roverpictures.html");
+        roverpictures.css("opacity", opacity + "%");
         $(".container").append(subHeader);
         $(".container").append(projectsLink);
         $(".container").append(apodLink);
         $(".container").append(epic);
         $(".container").append(videosearcher);
+        $(".container").append(roverPictures);
         const changeOpacity = setInterval(function () {
           opacity += 1;
           subHeader.css("opacity", opacity + "%");
