@@ -41,8 +41,13 @@
         projectsLink.attr("class", "link btn btn-outline-light");
         projectsLink.attr("href", "./projectinfo.html");
         projectsLink.css("opacity", opacity + "%");
+        const apodLink = $("<a>Astronomy Picture of the Day!</a>");
+        apodLink.attr("class", "link btn btn-outline-light");
+        apodLink.attr("href", "./apod.html");
+        apodLink.css("opacity", opacity + "%");
         $(".container").append(subHeader);
         $(".container").append(projectsLink);
+        $(".container").append(apodLink);
         const changeOpacity = setInterval(function () {
           opacity += 1;
           subHeader.css("opacity", opacity + "%");

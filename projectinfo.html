@@ -16,6 +16,11 @@
   </head>
   <body>
     <div class="container">
+      <a href="./index.html"
+        ><img
+          src="https://img.icons8.com/ios-filled/50/ffffff/home.png"
+          id="home-link"
+      /></a>
       <input type="text" placeholder="Search something to get started..." />
       <button id="search" class="btn btn-outline-light">Search!</button>
       <h2 id="title"></h2>
@@ -23,10 +28,12 @@
       <p id="benefits"></p>
     </div>
     <footer>
-        <p>Powered by the NASA API</p>
-        <a href="./index.html">Home</a>
-        <a href="./projectinfo.html">NASA Projects Info</a>
-      </footer>
+      <p>Powered by the NASA API</p>
+      <a href="./index.html">Home</a>
+      <a href="./projectinfo.html">NASA Projects Info</a>
+      <a href="./apod.html">Astronomy Picture of the Day</a>
+      <a href="https://icons8.com/icon/2797/home">Home icon by Icons8</a>
+    </footer>
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -38,14 +45,20 @@
       let i = 0;
       let txt = "";
       let whereToRender = "";
+      let speed = 20;
+
       function typeWriter() {
         if (i < txt.length) {
           document.getElementById(whereToRender).innerHTML += txt.charAt(i);
           i++;
-          setTimeout(typeWriter, 20);
-        } 
+          setTimeout(typeWriter, speed);
+        }
       }
       $("#search").on("click", function () {
+        speed = 20;
+        setTimeout(function () {
+          speed = 10;
+        }, 15000);
         searchQuery = $("input").val();
         $("input").val("");
         $("#title").empty();
@@ -94,11 +107,73 @@
               i = 0;
               whereToRender = "benefits";
               typeWriter();
-            }, (res.project.description.length * 20) +
-              4000 +
-              (res.project.title.length * 20));
+            }, res.project.description.length * 20 +
+              10000 +
+              res.project.title.length * 20);
           });
         });
+      });
+
+      $("input").on("keyup", function (e) {
+        if (e.key == "Enter") {
+          speed = 20;
+          setTimeout(function () {
+            speed = 10;
+          }, 15000);
+          searchQuery = $("input").val();
+          $("input").val("");
+          $("#title").empty();
+          $("#description").empty();
+          $("#benefits").empty();
+          $.ajax({
+            url:
+              "https://api.nasa.gov/techport/api/projects/search?searchQuery=" +
+              searchQuery +
+              "&api_key=brcbtCXfaGAxUTRbg6zJa6jIHcaVWqvHavht8jXi",
+            method: "GET",
+          }).then(function (res) {
+            id = res.projects[Math.floor(Math.random() * 20)].projectId;
+            $.ajax({
+              url:
+                "https://api.nasa.gov/techport/api/projects/" +
+                id +
+                "?api_key=brcbtCXfaGAxUTRbg6zJa6jIHcaVWqvHavht8jXi",
+              method: "GET",
+            }).then(function (res) {
+              console.log(res);
+              txt = res.project.title;
+              for (let i = 0; i < 20; i++) {
+                txt = txt.replace("<p>", "");
+                txt = txt.replace("</p>", "");
+              }
+              i = 0;
+              whereToRender = "title";
+              typeWriter();
+              setTimeout(function () {
+                txt = res.project.description;
+                for (let i = 0; i < 20; i++) {
+                  txt = txt.replace("<p>", "");
+                  txt = txt.replace("</p>", "");
+                }
+                i = 0;
+                whereToRender = "description";
+                typeWriter();
+              }, res.project.title.length * 20 + 1000);
+              setTimeout(function () {
+                txt = "Benefits: " + res.project.benefits;
+                for (let i = 0; i < 20; i++) {
+                  txt = txt.replace("<p>", "");
+                  txt = txt.replace("</p>", "");
+                }
+                i = 0;
+                whereToRender = "benefits";
+                typeWriter();
+              }, res.project.description.length * 20 +
+                7000 +
+                res.project.title.length * 20);
+            });
+          });
+        }
       });
     </script>
   </body>

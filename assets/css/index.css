@@ -16,6 +16,9 @@ body {
   color: white;
   margin-top: 50px;
 }
+.link {
+  margin: 20px;
+}
 input {
   width: 75%;
   padding: 6px 12px;
@@ -27,35 +30,44 @@ input {
   display: inline-block;
   margin-left: 15px;
 }
-h2, p{
-    color:white;
-    margin-top:30px;
+h2,
+p {
+  color: white;
+  margin-top: 30px;
 }
-p{
-    font-size:20px;
+p {
+  font-size: 20px;
 }
 footer {
-    background-color: rgb(156, 156, 156);
-    width: 100%;
-    padding-bottom:15px;
-    margin-top:10px;
-    position:absolute;
-    bottom:0px;
-  }
-  footer a {
-    text-decoration: none;
-    color: rgb(83, 83, 83); 
-    padding-left: 20px;
-    padding-right: 20px;
-    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
-  }
-  footer a:hover {
-    color: black;
-    transform: scale(110%, 110%);
-  }
-  footer p{
-      padding-left:20px;
-      color:white;
-      font-size:15px;
-      margin-top:10px;
-  }
+  background-color: rgb(156, 156, 156);
+  width: 100%;
+  padding-bottom: 15px;
+  margin-top: 10px;
+  position: absolute;
+  bottom: 0px;
+}
+footer a {
+  text-decoration: none;
+  color: rgb(83, 83, 83);
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+footer a:hover {
+  color: black;
+  transform: scale(110%, 110%);
+}
+footer p {
+  padding-left: 20px;
+  color: white;
+  font-size: 15px;
+  margin-top: 10px;
+}
+#home-link {
+  height: 35px;
+  transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+#home-link:hover {
+  filter: brightness(0.25);
+  transform: scale(130%, 130%);
+}
