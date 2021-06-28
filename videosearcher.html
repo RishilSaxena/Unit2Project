@@ -82,7 +82,7 @@
 
           const regex = /(\s)/g;
           source = source.replace(regex, "%20");
-          video.append("<source src=" + source + "type='video/mp4'>");
+          video.append("<source src=" + source + " type='video/mp4'>");
           if (document.body.clientHeight >= 900) {
             $("footer").css("position", "static");
           }
@@ -130,7 +130,7 @@
 
             const regex = /(\s)/g;
             source = source.replace(regex, "%20");
-            video.append("<source src=" + source + "type='video/mp4'>");
+            video.append("<source src=" + source + " type='video/mp4'>");
             if (document.body.clientHeight >= 900) {
               $("footer").css("position", "static");
             }
