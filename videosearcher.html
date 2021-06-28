@@ -130,8 +130,7 @@
 
             const regex = /(\s)/g;
             source = source.replace(regex, "%20");
-            video.append("<source src=" + source + " type='video/mp4'>");
-            // $(video).on("load", function () {
+            video.append("<source src=" + source + "type='video/mp4'>");
             if (document.body.clientHeight >= 900) {
               $("footer").css("position", "static");
             }
@@ -142,7 +141,6 @@
             txt = res.collection.items[indexNumber].data[0].description;
             whereToRender = "caption";
             typeWriter();
-            // });
             console.log(res);
           });
         }
